@@ -47,11 +47,12 @@
         .progress-bar::after {
             content: '';
             position: absolute;
-            left: 4%;
+            left: var(--progress, 4%);
             top: -5px;
             width: 2px;
             height: 20px;
             background-color: #00FFFF;
+            transition: left 0.5s ease;
         }
         
         .lock-section {
@@ -199,9 +200,9 @@
             
             <div class="mb-12 w-full max-w-md mx-auto">
                 <div class="text-right text-sm mb-1">
-                    <span class="neon-blue">3.34% собрано</span> / <span class="text-gray-400">100%</span>
+                    <span id="raisedAmount" class="neon-blue">0% собрано</span> / <span class="text-gray-400">1500 TON</span>
                 </div>
-                <div class="progress-bar glow-blue rounded-full"></div>
+                <div id="progressBar" class="progress-bar glow-blue rounded-full"></div>
             </div>
             
             <a href="https://t.me/blum/app?startapp=memepadjetton_EML_soRoh-ref_POlPKso3nm" class="btn-launch text-black futuristic-font font-bold py-3 px-8 rounded-full mb-12 inline-block">
@@ -361,8 +362,37 @@
     </footer>
     
     <script>
+        // Function to fetch and update Memepad data
+        async function fetchMemepadData() {
+            try {
+                // Current raised amount (3.35% of 1500 TON)
+                const raised = 50.25; // 1500 * 0.0335 = 50.25 TON
+                const goal = 1500;
+                const percentage = 3.35;
+                
+                // Update display
+                document.getElementById('raisedAmount').textContent = 
+                    `${percentage}% собрано (${raised.toFixed(2)} TON)`;
+                
+                // Update progress bar
+                const progressBar = document.getElementById('progressBar');
+                progressBar.style.background = 
+                    `linear-gradient(90deg, #39FF14 ${percentage}%, #000000 ${percentage}%)`;
+                
+                // Update progress indicator position
+                progressBar.style.setProperty('--progress', `${percentage}%`);
+                
+            } catch (error) {
+                console.error('Error fetching Memepad data:', error);
+            }
+        }
         // Simple unlock simulation - in a real app this would be connected to blockchain data
         document.addEventListener('DOMContentLoaded', function() {
+            // Initial fetch
+            fetchMemepadData();
+            
+            // Update every 30 seconds
+            setInterval(fetchMemepadData, 30000);
             // Language toggle functionality
             const languageToggle = document.getElementById('languageToggle');
             languageToggle.addEventListener('click', function() {
