@@ -172,6 +172,13 @@
     </style>
 </head>
 <body class="min-h-screen">
+    <!-- Language Toggle -->
+    <div class="absolute top-4 right-4 z-50">
+        <button id="languageToggle" class="futuristic-font text-sm neon-blue hover:neon-green px-3 py-1 border border-cyan-400 rounded-full">
+            RU
+        </button>
+    </div>
+
     <!-- Hero Section -->
     <section class="relative min-h-screen flex flex-col justify-center items-center px-4 py-16 overflow-hidden">
         <div class="tech-line"></div>
@@ -186,7 +193,8 @@
             </div>
             
             <h2 class="text-xl md:text-2xl mb-8 futuristic-font">
-                <span class="neon-blue">Созданный сообществом.</span> <span class="neon-green">Двигаемся вместе.</span>
+                <span class="neon-blue ru-text">Созданный сообществом.</span> <span class="neon-green ru-text">Двигаемся вместе.</span>
+                <span class="neon-blue en-text hidden">Community created.</span> <span class="neon-green en-text hidden">Moving forward together.</span>
             </h2>
             
             <div class="mb-12 w-full max-w-md mx-auto">
@@ -197,7 +205,8 @@
             </div>
             
             <a href="https://t.me/blum/app?startapp=memepadjetton_EML_soRoh-ref_POlPKso3nm" class="btn-launch text-black futuristic-font font-bold py-3 px-8 rounded-full mb-12 inline-block">
-                ПОДДЕРЖАТЬ ЗАПУСК
+                <span class="ru-text">ПОДДЕРЖАТЬ ЗАПУСК</span>
+                <span class="en-text hidden">SUPPORT THE LAUNCH</span>
             </a>
             
             <div class="flex justify-center space-x-6">
@@ -229,7 +238,8 @@
                     <i class="fas fa-lock"></i>
                 </div>
                 <p class="text-xl futuristic-font neon-green text-center max-w-md mx-auto">
-                    Эта глава откроется после запуска токена
+                    <span class="ru-text">Эта глава откроется после запуска токена</span>
+                    <span class="en-text hidden">This chapter will unlock after token launch</span>
                 </p>
             </div>
             
@@ -290,7 +300,8 @@
                     <i class="fas fa-lock"></i>
                 </div>
                 <p class="text-xl futuristic-font neon-blue text-center max-w-md mx-auto">
-                    Откроется после 100+ холдеров или 50% ликвидности
+                    <span class="ru-text">Откроется после 100+ холдеров или 50% ликвидности</span>
+                    <span class="en-text hidden">Will unlock after 100+ holders or 50% liquidity</span>
                 </p>
             </div>
             
@@ -352,6 +363,24 @@
     <script>
         // Simple unlock simulation - in a real app this would be connected to blockchain data
         document.addEventListener('DOMContentLoaded', function() {
+            // Language toggle functionality
+            const languageToggle = document.getElementById('languageToggle');
+            languageToggle.addEventListener('click', function() {
+                const ruTexts = document.querySelectorAll('.ru-text');
+                const enTexts = document.querySelectorAll('.en-text');
+                
+                if (languageToggle.textContent === 'RU') {
+                    // Switch to English
+                    ruTexts.forEach(el => el.classList.add('hidden'));
+                    enTexts.forEach(el => el.classList.remove('hidden'));
+                    languageToggle.textContent = 'EN';
+                } else {
+                    // Switch to Russian
+                    ruTexts.forEach(el => el.classList.remove('hidden'));
+                    enTexts.forEach(el => el.classList.add('hidden'));
+                    languageToggle.textContent = 'RU';
+                }
+            });
             // For demo purposes - simulate unlocking sections
             const unlockButtons = document.querySelectorAll('.simulate-unlock');
             
