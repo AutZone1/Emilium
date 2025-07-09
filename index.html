@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emilium (EML) - TON Community Token</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000000;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .futuristic-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .neon-blue {
+            color: #00FFFF;
+            text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
+        }
+        
+        .neon-green {
+            color: #39FF14;
+            text-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14;
+        }
+        
+        .glow-blue {
+            box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
+        }
+        
+        .glow-green {
+            box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: linear-gradient(90deg, #39FF14 4%, #000000 4%);
+            position: relative;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            left: 4%;
+            top: -5px;
+            width: 2px;
+            height: 20px;
+            background-color: #00FFFF;
+        }
+        
+        .lock-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .lock-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .tech-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00FFFF, transparent);
+            opacity: 0.3;
+        }
+        
+        .tech-line:nth-child(1) { top: 20%; }
+        .tech-line:nth-child(2) { top: 40%; }
+        .tech-line:nth-child(3) { top: 60%; }
+        .tech-line:nth-child(4) { top: 80%; }
+        
+        .roadmap-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: #00FFFF;
+        }
+        
+        .roadmap-item.completed::before {
+            background-color: #39FF14;
+        }
+        
+        .roadmap-item.completed::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0.25rem;
+            top: 0.5rem;
+            color: black;
+            font-size: 0.6rem;
+        }
+        
+        .roadmap-line {
+            position: absolute;
+            left: 0.5rem;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% - 1rem);
+            background-color: #00FFFF;
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+        
+        .btn-launch {
+            background: linear-gradient(45deg, #00FFFF, #39FF14);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-launch:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px #00FFFF, 0 0 30px #39FF14;
+        }
+        
+        .flicker {
+            animation: flicker 3s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+            }
+            20%, 22%, 24%, 55% {
+                opacity: 0.4;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex flex-col justify-center items-center px-4 py-16 overflow-hidden">
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+        
+        <div class="text-center max-w-4xl mx-auto z-10">
+            <!-- Temporary Logo -->
+            <div class="futuristic-font text-5xl md:text-7xl mb-6">
+                <span class="neon-blue">EMIL</span><span class="neon-green flicker">IUM</span>
+            </div>
+            
+            <h2 class="text-xl md:text-2xl mb-8 futuristic-font">
+                <span class="neon-blue">Созданный сообществом.</span> <span class="neon-green">Двигаемся вместе.</span>
+            </h2>
+            
+            <div class="mb-12 w-full max-w-md mx-auto">
+                <div class="text-right text-sm mb-1">
+                    <span class="neon-blue">4% собрано</span> / <span class="text-gray-400">100%</span>
+                </div>
+                <div class="progress-bar glow-blue rounded-full"></div>
+            </div>
+            
+            <a href="#" class="btn-launch text-black futuristic-font font-bold py-3 px-8 rounded-full mb-12 inline-block">
+                ПОДДЕРЖАТЬ ЗАПУСК
+            </a>
+            
+            <div class="flex justify-center space-x-6">
+                <a href="https://t.me/EmiliumEML" target="_blank" class="social-icon text-2xl neon-blue hover:neon-green">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="https://www.instagram.com/emilium_inc" target="_blank" class="social-icon text-2xl neon-blue hover:neon-green">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-0 right-0 text-center">
+            <a href="#about" class="text-gray-400 hover:text-white animate-bounce inline-block">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+    
+    <!-- About Token Section (Locked) -->
+    <section id="about" class="lock-section py-20 px-4 relative">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl futuristic-font mb-8 neon-blue text-center">
+                О ТОКЕНЕ
+            </h2>
+            
+            <div class="lock-overlay">
+                <div class="lock-icon neon-blue">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <p class="text-xl futuristic-font neon-green text-center max-w-md mx-auto">
+                    Эта глава откроется после запуска токена
+                </p>
+            </div>
+            
+            <!-- Hidden content that will be shown when unlocked -->
+            <div class="hidden unlocked-content">
+                <div class="bg-black bg-opacity-50 p-6 rounded-lg border border-gray-800 mb-8">
+                    <h3 class="text-2xl futuristic-font neon-green mb-4">Что такое Emilium?</h3>
+                    <p class="text-gray-300 mb-4">
+                        Emilium (EML) — это TON-базированный токен, созданный сообществом для сообщества. 
+                        Наша цель — создать экосистему, где каждый участник имеет право голоса и возможность 
+                        влиять на развитие проекта.
+                    </p>
+                </div>
+                
+                <div class="bg-black bg-opacity-50 p-6 rounded-lg border border-gray-800 mb-8">
+                    <h3 class="text-2xl futuristic-font neon-green mb-4">Миссия проекта</h3>
+                    <p class="text-gray-300 mb-4">
+                        Мы стремимся к созданию полностью децентрализованной платформы, где прозрачность 
+                        и доверие являются основополагающими принципами. Emilium — это больше чем токен, 
+                        это движение.
+                    </p>
+                </div>
+                
+                <div class="bg-black bg-opacity-50 p-6 rounded-lg border border-gray-800">
+                    <h3 class="text-2xl futuristic-font neon-green mb-4">Ключевые принципы</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="neon-blue mr-2">✓</span>
+                            <span>Честная токеномика без скрытых распределений</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="neon-blue mr-2">✓</span>
+                            <span>Сообщество в центре всех решений</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="neon-blue mr-2">✓</span>
+                            <span>Полная прозрачность операций</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="neon-blue mr-2">✓</span>
+                            <span>Доверие через технологию блокчейн</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Roadmap Section (Locked) -->
+    <section class="lock-section py-20 px-4 relative bg-black bg-opacity-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl futuristic-font mb-8 neon-green text-center">
+                ПУТЕВОДНАЯ КАРТА
+            </h2>
+            
+            <div class="lock-overlay">
+                <div class="lock-icon neon-green">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <p class="text-xl futuristic-font neon-blue text-center max-w-md mx-auto">
+                    Откроется после 100+ холдеров или 50% ликвидности
+                </p>
+            </div>
+            
+            <!-- Hidden content that will be shown when unlocked -->
+            <div class="hidden unlocked-content">
+                <div class="relative">
+                    <div class="roadmap-item completed">
+                        <h3 class="text-xl futuristic-font neon-blue mb-2">Этап 1 — Запуск токена</h3>
+                        <p class="text-gray-300">Создание токена EML на блокчейне TON, настройка начальной ликвидности.</p>
+                    </div>
+                    <div class="roadmap-line"></div>
+                    
+                    <div class="roadmap-item">
+                        <h3 class="text-xl futuristic-font neon-blue mb-2">Этап 2 — Завершение сбора TON</h3>
+                        <p class="text-gray-300">Достижение целевого объема собранных средств для развития проекта.</p>
+                    </div>
+                    
+                    <div class="roadmap-item">
+                        <h3 class="text-xl futuristic-font neon-blue mb-2">Этап 3 — Первый листинг</h3>
+                        <p class="text-gray-300">Листинг токена на децентрализованных биржах TON экосистемы.</p>
+                    </div>
+                    
+                    <div class="roadmap-item">
+                        <h3 class="text-xl futuristic-font neon-blue mb-2">Этап 4 — Telegram-бот, NFT</h3>
+                        <p class="text-gray-300">Разработка полезных инструментов для сообщества и запуск NFT коллекции.</p>
+                    </div>
+                    
+                    <div class="roadmap-item">
+                        <h3 class="text-xl futuristic-font neon-blue mb-2">Этап 5 — DAO/голосования</h3>
+                        <p class="text-gray-300">Внедрение системы децентрализованного управления проектом.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-gray-800 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="futuristic-font text-2xl mb-6">
+                <span class="neon-blue">EMIL</span><span class="neon-green">IUM</span>
+            </div>
+            
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://t.me/EmiliumEML" target="_blank" class="social-icon text-xl neon-blue hover:neon-green">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="https://www.instagram.com/emilium_inc" target="_blank" class="social-icon text-xl neon-blue hover:neon-green">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            
+            <p class="text-gray-400 text-sm">
+                © 2023 Emilium (EML). Все права защищены.
+            </p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple unlock simulation - in a real app this would be connected to blockchain data
+        document.addEventListener('DOMContentLoaded', function() {
+            // For demo purposes - simulate unlocking sections
+            const unlockButtons = document.querySelectorAll('.simulate-unlock');
+            
+            unlockButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const section = this.closest('.lock-section');
+                    const overlay = section.querySelector('.lock-overlay');
+                    const content = section.querySelector('.unlocked-content');
+                    
+                    overlay.style.display = 'none';
+                    content.classList.remove('hidden');
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=autzone/emilium" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
