@@ -196,11 +196,18 @@
             <h2 class="text-xl md:text-2xl mb-8 futuristic-font">
                 <span class="neon-blue ru-text">Созданный сообществом.</span> <span class="neon-green ru-text">Двигаемся вместе.</span>
                 <span class="neon-blue en-text hidden">Community created.</span> <span class="neon-green en-text hidden">Moving forward together.</span>
+                <span class="neon-blue de-text hidden">Von der Gemeinschaft erstellt.</span> <span class="neon-green de-text hidden">Gemeinsam vorwärts.</span>
+                <span class="neon-blue zh-text hidden">社区创建。</span> <span class="neon-green zh-text hidden">共同前进。</span>
             </h2>
             
             <div class="mb-12 w-full max-w-md mx-auto">
                 <div class="text-right text-sm mb-1">
-                    <span id="raisedAmount" class="neon-blue">0% собрано</span> / <span class="text-gray-400">1500 TON</span>
+                    <span id="raisedAmount" class="neon-blue">
+                        <span class="ru-text">0% собрано</span>
+                        <span class="en-text hidden">0% raised</span>
+                        <span class="de-text hidden">0% gesammelt</span>
+                        <span class="zh-text hidden">0% 已筹集</span>
+                    </span> / <span class="text-gray-400">1500 TON</span>
                 </div>
                 <div id="progressBar" class="progress-bar glow-blue rounded-full"></div>
             </div>
@@ -208,6 +215,8 @@
             <a href="https://t.me/blum/app?startapp=memepadjetton_EML_soRoh-ref_POlPKso3nm" class="btn-launch text-black futuristic-font font-bold py-3 px-8 rounded-full mb-12 inline-block">
                 <span class="ru-text">ПОДДЕРЖАТЬ ЗАПУСК</span>
                 <span class="en-text hidden">SUPPORT THE LAUNCH</span>
+                <span class="de-text hidden">START UNTERSTÜTZEN</span>
+                <span class="zh-text hidden">支持启动</span>
             </a>
             
             <div class="flex justify-center space-x-6">
@@ -231,7 +240,10 @@
     <section id="about" class="lock-section py-20 px-4 relative">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl md:text-4xl futuristic-font mb-8 neon-blue text-center">
-                О ТОКЕНЕ
+                <span class="ru-text">О ТОКЕНЕ</span>
+                <span class="en-text hidden">ABOUT TOKEN</span>
+                <span class="de-text hidden">ÜBER DEN TOKEN</span>
+                <span class="zh-text hidden">关于代币</span>
             </h2>
             
             <div class="lock-overlay">
@@ -241,6 +253,8 @@
                 <p class="text-xl futuristic-font neon-green text-center max-w-md mx-auto">
                     <span class="ru-text">Эта глава откроется после запуска токена</span>
                     <span class="en-text hidden">This chapter will unlock after token launch</span>
+                    <span class="de-text hidden">Dieses Kapitel wird nach dem Token-Start freigeschaltet</span>
+                    <span class="zh-text hidden">本章将在代币启动后解锁</span>
                 </p>
             </div>
             
@@ -293,7 +307,10 @@
     <section class="lock-section py-20 px-4 relative bg-black bg-opacity-50">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl md:text-4xl futuristic-font mb-8 neon-green text-center">
-                ПУТЕВОДНАЯ КАРТА
+                <span class="ru-text">ПУТЕВОДНАЯ КАРТА</span>
+                <span class="en-text hidden">ROADMAP</span>
+                <span class="de-text hidden">ROADMAP</span>
+                <span class="zh-text hidden">路线图</span>
             </h2>
             
             <div class="lock-overlay">
@@ -303,6 +320,8 @@
                 <p class="text-xl futuristic-font neon-blue text-center max-w-md mx-auto">
                     <span class="ru-text">Откроется после 100+ холдеров или 50% ликвидности</span>
                     <span class="en-text hidden">Will unlock after 100+ holders or 50% liquidity</span>
+                    <span class="de-text hidden">Wird nach 100+ Inhabern oder 50% Liquidität freigeschaltet</span>
+                    <span class="zh-text hidden">将在100+持有者或50%流动性后解锁</span>
                 </p>
             </div>
             
@@ -356,7 +375,10 @@
             </div>
             
             <p class="text-gray-400 text-sm">
-                © 2023 Emilium (EML). Все права защищены.
+                <span class="ru-text">© 2025 Emilium (EML). Все права защищены.</span>
+                <span class="en-text hidden">© 2025 Emilium (EML). All rights reserved.</span>
+                <span class="de-text hidden">© 2025 Emilium (EML). Alle Rechte vorbehalten.</span>
+                <span class="zh-text hidden">© 2025 Emilium (EML). 版权所有。</span>
             </p>
         </div>
     </footer>
@@ -371,8 +393,16 @@
                 const percentage = 3.35;
                 
                 // Update display
-                document.getElementById('raisedAmount').textContent = 
-                    `${percentage}% собрано (${raised.toFixed(2)} TON)`;
+                const raisedAmount = document.getElementById('raisedAmount');
+                const ruText = `${percentage}% собрано (${raised.toFixed(2)} TON)`;
+                const enText = `${percentage}% raised (${raised.toFixed(2)} TON)`;
+                const deText = `${percentage}% gesammelt (${raised.toFixed(2)} TON)`;
+                const zhText = `${percentage}% 已筹集 (${raised.toFixed(2)} TON)`;
+                
+                raisedAmount.querySelector('.ru-text').textContent = ruText;
+                raisedAmount.querySelector('.en-text').textContent = enText;
+                raisedAmount.querySelector('.de-text').textContent = deText;
+                raisedAmount.querySelector('.zh-text').textContent = zhText;
                 
                 // Update progress bar
                 const progressBar = document.getElementById('progressBar');
@@ -393,21 +423,41 @@
             
             // Update every 30 seconds
             setInterval(fetchMemepadData, 30000);
-            // Language toggle functionality
+            // Language toggle functionality (cycles through RU -> EN -> DE -> ZH -> RU...)
             const languageToggle = document.getElementById('languageToggle');
             languageToggle.addEventListener('click', function() {
                 const ruTexts = document.querySelectorAll('.ru-text');
                 const enTexts = document.querySelectorAll('.en-text');
+                const deTexts = document.querySelectorAll('.de-text');
+                const zhTexts = document.querySelectorAll('.zh-text');
                 
                 if (languageToggle.textContent === 'RU') {
                     // Switch to English
                     ruTexts.forEach(el => el.classList.add('hidden'));
                     enTexts.forEach(el => el.classList.remove('hidden'));
+                    deTexts.forEach(el => el.classList.add('hidden'));
+                    zhTexts.forEach(el => el.classList.add('hidden'));
                     languageToggle.textContent = 'EN';
+                } else if (languageToggle.textContent === 'EN') {
+                    // Switch to German
+                    ruTexts.forEach(el => el.classList.add('hidden'));
+                    enTexts.forEach(el => el.classList.add('hidden'));
+                    deTexts.forEach(el => el.classList.remove('hidden'));
+                    zhTexts.forEach(el => el.classList.add('hidden'));
+                    languageToggle.textContent = 'DE';
+                } else if (languageToggle.textContent === 'DE') {
+                    // Switch to Chinese
+                    ruTexts.forEach(el => el.classList.add('hidden'));
+                    enTexts.forEach(el => el.classList.add('hidden'));
+                    deTexts.forEach(el => el.classList.add('hidden'));
+                    zhTexts.forEach(el => el.classList.remove('hidden'));
+                    languageToggle.textContent = 'ZH';
                 } else {
                     // Switch to Russian
                     ruTexts.forEach(el => el.classList.remove('hidden'));
                     enTexts.forEach(el => el.classList.add('hidden'));
+                    deTexts.forEach(el => el.classList.add('hidden'));
+                    zhTexts.forEach(el => el.classList.add('hidden'));
                     languageToggle.textContent = 'RU';
                 }
             });
