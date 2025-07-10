@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BONUS Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #000;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+    }
+    .futuristic-font {
+      font-family: 'Orbitron', sans-serif;
+    }
+    .neon-blue {
+      color: #00FFFF;
+      text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
+    }
+    .neon-green {
+      color: #39FF14;
+      text-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14;
+    }
+    .btn-launch {
+      background: linear-gradient(45deg, #00FFFF, #39FF14);
+      color: black;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      box-shadow: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-align: center;
+      user-select: none;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-launch:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px #00FFFF, 0 0 30px #39FF14;
+    }
+    .btn-launch:focus {
+      outline: 2px solid #00FFFF;
+      outline-offset: 2px;
+    }
+    #thankYouMessage {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 255, 255, 0.9);
+      color: black;
+      padding: 1.25rem 2rem;
+      border-radius: 1rem;
+      font-weight: bold;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 0 20px #00FFFF;
+      z-index: 50;
+      user-select: none;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    #thankYouMessage.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    #thankYouMessage svg {
+      width: 24px;
+      height: 24px;
+      fill: #39FF14;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    #languageToggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center px-4 py-8">
+
+  <!-- Переключатель языка -->
+  <button id="languageToggle" class="btn-launch text-sm px-4 py-2">EN</button>
+
+  <p id="introText" class="max-w-md text-center neon-green futuristic-font mb-6 text-lg px-4">
+    Благодарим за участие в запуске проекта. После старта вы получите бонус в размере <strong>20 000 EML</strong>.
+  </p>
+
+  <form id="bonusForm" class="bg-black bg-opacity-50 p-8 rounded-lg border border-gray-800 max-w-md w-full">
+    <h2 id="formTitle" class="text-3xl futuristic-font neon-blue mb-6 text-center">BONUS FORM</h2>
+
+    <label class="block mb-4">
+      <span id="telegramLabel" class="block mb-1 neon-green">Telegram</span>
+      <input type="text" name="telegram" required
+             class="w-full px-4 py-2 rounded bg-gray-900 text-white border border-gray-700"
+             id="telegramInput"
+             placeholder="@username" />
+    </label>
+
+    <label class="block mb-4">
+      <span id="tonLabel" class="block mb-1 neon-green">TON Address</span>
+      <input type="text" name="ton" required
+             class="w-full px-4 py-2 rounded bg-gray-900 text-white border border-gray-700"
+             id="tonInput"
+             placeholder="EQ..." />
+    </label>
+
+    <label class="block mb-4">
+      <span id="commentLabel" class="block mb-1 neon-green">Комментарий (необязательно)</span>
+      <textarea name="comment" rows="3"
+                class="w-full px-4 py-2 rounded bg-gray-900 text-white border border-gray-700"
+                id="commentInput"
+                placeholder="..."></textarea>
+    </label>
+
+    <button id="submitButton" type="submit"
+            class="btn-launch w-full futuristic-font font-bold rounded-full">
+      ОТПРАВИТЬ
+    </button>
+  </form>
+
+  <div class="mt-6 text-center">
+    <a href="/" id="backButton" class="btn-launch text-black futuristic-font font-bold py-3 px-8 rounded-full inline-block">
+      ← Назад на главную
+    </a>
+  </div>
+
+  <!-- Сообщение Спасибо -->
+  <div id="thankYouMessage" role="alert" aria-live="assertive" aria-atomic="true">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M9 16.2l-3.5-3.5 1.4-1.4L9 13.4l7.1-7.1 1.4 1.4z"/>
+    </svg>
+    <span id="thankYouText">Спасибо!</span>
+  </div>
+
+  <script>
+    const form = document.getElementById('bonusForm');
+    const thankYouMessage = document.getElementById('thankYouMessage');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      thankYouMessage.classList.add('show');
+
+      const formData = new FormData(form);
+      fetch('https://script.google.com/macros/s/AKfycbxvJ_jKLJOh6X7QrfloSxR-DKCvAKt9d7BbwVe7tohB0D3SZuLOdj9LZ1Lu1q1QYog/exec', {
+        method: 'POST',
+        body: formData
+      }).then(response => response.text())
+        .then(text => {
+          form.reset();
+        }).catch(error => {
+          alert('Ошибка сети: ' + error.message);
+        });
+
+      setTimeout(() => {
+        thankYouMessage.classList.remove('show');
+      }, 2000);
+    });
+
+    const languages = ['ru', 'en', 'de', 'zh'];
+    let currentIndex = 0;
+
+    const translations = {
+      ru: {
+        toggle: 'EN',
+        introText: 'Благодарим за участие в запуске проекта. После старта вы получите бонус в размере <strong>20 000 EML</strong>.',
+        formTitle: 'BONUS FORM',
+        telegramLabel: 'Telegram',
+        tonLabel: 'TON Address',
+        commentLabel: 'Комментарий (необязательно)',
+        commentPlaceholder: '...',
+        submitButton: 'ОТПРАВИТЬ',
+        backButton: '← Назад на главную',
+        thankYouText: 'Спасибо!',
+        telegramPlaceholder: '@username',
+        tonPlaceholder: 'EQ...'
+      },
+      en: {
+        toggle: 'DE',
+        introText: 'Thank you for participating in the project launch. You will receive a <strong>20,000 EML</strong> bonus after launch.',
+        formTitle: 'BONUS FORM',
+        telegramLabel: 'Telegram',
+        tonLabel: 'TON Address',
+        commentLabel: 'Comment (optional)',
+        commentPlaceholder: '...',
+        submitButton: 'SUBMIT',
+        backButton: '← Back to Home',
+        thankYouText: 'Thank you!',
+        telegramPlaceholder: '@username',
+        tonPlaceholder: 'EQ...'
+      },
+      de: {
+        toggle: '中文',
+        introText: 'Vielen Dank für Ihre Teilnahme am Projektstart. Nach dem Start erhalten Sie einen <strong>20.000 EML</strong> Bonus.',
+        formTitle: 'BONUS FORMULAR',
+        telegramLabel: 'Telegram',
+        tonLabel: 'TON Adresse',
+        commentLabel: 'Kommentar (optional)',
+        commentPlaceholder: '...',
+        submitButton: 'SENDEN',
+        backButton: '← Zurück zur Startseite',
+        thankYouText: 'Danke!',
+        telegramPlaceholder: '@benutzername',
+        tonPlaceholder: 'EQ...'
+      },
+      zh: {
+        toggle: 'RU',
+        introText: '感谢您参与项目启动。启动后，您将获得 <strong>20,000 EML</strong> 奖励。',
+        formTitle: '奖金表格',
+        telegramLabel: 'Telegram',
+        tonLabel: 'TON 地址',
+        commentLabel: '评论（可选）',
+        commentPlaceholder: '...',
+        submitButton: '提交',
+        backButton: '← 返回主页',
+        thankYouText: '谢谢！',
+        telegramPlaceholder: '@用户名',
+        tonPlaceholder: 'EQ...'
+      }
+    };
+
+    const languageToggle = document.getElementById('languageToggle');
+
+    languageToggle.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % languages.length;
+      const lang = languages[currentIndex];
+      const t = translations[lang];
+
+      languageToggle.textContent = t.toggle;
+      document.getElementById('introText').innerHTML = t.introText;
+      document.getElementById('formTitle').textContent = t.formTitle;
+      document.getElementById('telegramLabel').textContent = t.telegramLabel;
+      document.getElementById('tonLabel').textContent = t.tonLabel;
+      document.getElementById('commentLabel').textContent = t.commentLabel;
+      document.getElementById('submitButton').textContent = t.submitButton;
+      document.getElementById('backButton').textContent = t.backButton;
+      document.getElementById('thankYouText').textContent = t.thankYouText;
+      document.getElementById('telegramInput').placeholder = t.telegramPlaceholder;
+      document.getElementById('tonInput').placeholder = t.tonPlaceholder;
+      document.getElementById('commentInput').placeholder = t.commentPlaceholder;
+    });
+  </script>
+</body>
+</html>
+
